@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/YnapSantoro/test-serverless/issues"
   },
-  "homepage": "https://github.com/YnapSantoro/test-serverless#readme"
+  "homepage": "https://github.com/YnapSantoro/test-serverless#readme",
+  "dependencies": {
+    "serverless-offline": "^5.10.1"
+  }
 }
