@@ -23,9 +23,32 @@ provider:
   name: aws
   runtime: nodejs10.x
 
+
+
+
+custom:
+  localstack:
+    stages:
+      - local
+      - dev
+    host: http://localhost
+    autostart: true
+    endpoints:
+     Lambda: http://localhost:4574
+     ApiGateway: http://localhost:4567
+    lambda:
+      # Enable this flag to improve performance
+      mountCode: True
+    docker:
+      # Enable this flag to run "docker ..." commands as sudo
+      sudo: False
+
+
 # you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  stage: local
+  region: us-east-1
+
+plugins: ["serverless-offline","serverless-localstack"]
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -59,13 +82,10 @@ provider:
 functions:
   hello:
     handler: handler.hello
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
+    events:
+       - http:
+           path: users/create
+           method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
